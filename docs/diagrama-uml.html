@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama UML - Adapter</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #ffffff; }
+        svg { display: block; width: 1180px; max-width: 100%; height: auto; }
+        .nome { font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; fill: #2d3142; }
+        .membro { font-family: Consolas, monospace; font-size: 12px; fill: #2d3142; }
+        .tag { font-family: Consolas, monospace; font-size: 11px; text-anchor: middle; fill: #4f5d75; }
+    </style>
+</head>
+<body>
+<svg viewBox="0 0 1180 668" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diagrama-uml-title diagrama-uml-desc">
+    <title id="diagrama-uml-title">Diagrama de classes do padrão Adapter</title>
+    <desc id="diagrama-uml-desc">Checkout depende da interface GatewayPagamento, realizada por CartaoAdapter e PixAdapter, que adaptam respectivamente ServicoCartaoLegado e ServicoPixExterno.</desc>
+    <defs>
+        <marker id="heranca" markerWidth="16" markerHeight="12" refX="16" refY="6" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 0,16 6,0 12" fill="#ffffff" stroke="#2d3142"/></marker>
+        <marker id="associacao" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8" fill="none" stroke="#4f5d75"/></marker>
+        <marker id="agregacao" markerWidth="18" markerHeight="10" refX="0" refY="5" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 5,9 0,18 5,9 10" fill="#ffffff" stroke="#2d3142"/></marker>
+        <marker id="composicao" markerWidth="18" markerHeight="10" refX="0" refY="5" orient="auto" markerUnits="userSpaceOnUse"><polygon points="0 5,9 0,18 5,9 10" fill="#2d3142" stroke="#2d3142"/></marker>
+    </defs>
+    <rect width="1180" height="668" fill="#ffffff"/>
+
+    <line x1="420" y1="90" x2="600" y2="90" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="426" y="68" width="16" height="16" fill="#ffffff"/><text x="428" y="80" class="membro">1</text>
+    <rect x="576" y="68" width="16" height="16" fill="#ffffff"/><text x="578" y="80" class="membro">1</text>
+    <path d="M300 300 V220 H760 V120" fill="none" stroke="#2d3142" stroke-dasharray="5,4" marker-end="url(#heranca)"/>
+    <path d="M890 300 V120" fill="none" stroke="#2d3142" stroke-dasharray="5,4" marker-end="url(#heranca)"/>
+    <line x1="300" y1="420" x2="300" y2="560" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="308" y="538" width="16" height="16" fill="#ffffff"/><text x="310" y="550" class="membro">1</text>
+    <line x1="890" y1="420" x2="890" y2="560" stroke="#4f5d75" marker-end="url(#associacao)"/>
+    <rect x="898" y="538" width="16" height="16" fill="#ffffff"/><text x="900" y="550" class="membro">1</text>
+
+    <g id="checkout">
+        <rect x="40" y="40" width="380" height="100" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 40 H414 Q420 40 420 46 V76 H40 V46 Q40 40 46 40" fill="#f1f3f5"/>
+        <text x="230" y="63" class="nome">Checkout</text>
+        <line x1="40" y1="76" x2="420" y2="76" stroke="#bfc0c0"/>
+        <text x="54" y="96" class="membro">- gateway: GatewayPagamento {readOnly}</text>
+        <line x1="40" y1="108" x2="420" y2="108" stroke="#bfc0c0"/>
+        <text x="54" y="128" class="membro">+ finalizarCompra(String, double): String</text>
+    </g>
+    <g id="gateway-pagamento">
+        <rect x="600" y="40" width="520" height="80" rx="6" fill="#ffffff" stroke="#eb6c36"/>
+        <rect x="600" y="40" width="520" height="80" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36"/>
+        <path d="M606 40 H1114 Q1120 40 1120 46 V88 H600 V46 Q600 40 606 40" fill="#fff1eb"/>
+        <text x="860" y="59" class="tag">«interface»</text>
+        <text x="860" y="78" class="nome">GatewayPagamento</text>
+        <line x1="600" y1="88" x2="1120" y2="88" stroke="#bfc0c0"/>
+        <text x="614" y="108" class="membro">+ pagar(cliente: String, valor: double): String</text>
+    </g>
+    <g id="cartao-adapter">
+        <rect x="40" y="300" width="520" height="120" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 300 H554 Q560 300 560 306 V336 H40 V306 Q40 300 46 300" fill="#f1f3f5"/>
+        <text x="300" y="323" class="nome">CartaoAdapter</text>
+        <line x1="40" y1="336" x2="560" y2="336" stroke="#bfc0c0"/>
+        <text x="54" y="356" class="membro">- servico: ServicoCartaoLegado {readOnly}</text>
+        <text x="54" y="376" class="membro">- numeroCartao: String {readOnly}</text>
+        <line x1="40" y1="388" x2="560" y2="388" stroke="#bfc0c0"/>
+        <text x="54" y="408" class="membro">+ pagar(String, double): String</text>
+    </g>
+    <g id="pix-adapter">
+        <rect x="640" y="300" width="500" height="120" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M646 300 H1134 Q1140 300 1140 306 V336 H640 V306 Q640 300 646 300" fill="#f1f3f5"/>
+        <text x="890" y="323" class="nome">PixAdapter</text>
+        <line x1="640" y1="336" x2="1140" y2="336" stroke="#bfc0c0"/>
+        <text x="654" y="356" class="membro">- servico: ServicoPixExterno {readOnly}</text>
+        <text x="654" y="376" class="membro">- chaveRecebedor: String {readOnly}</text>
+        <line x1="640" y1="388" x2="1140" y2="388" stroke="#bfc0c0"/>
+        <text x="654" y="408" class="membro">+ pagar(String, double): String</text>
+    </g>
+    <g id="servico-cartao-legado">
+        <rect x="40" y="560" width="520" height="68" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M46 560 H554 Q560 560 560 566 V596 H40 V566 Q40 560 46 560" fill="#f1f3f5"/>
+        <text x="300" y="583" class="nome">ServicoCartaoLegado</text>
+        <line x1="40" y1="596" x2="560" y2="596" stroke="#bfc0c0"/>
+        <text x="54" y="616" class="membro">+ cobrarEmCentavos(numeroCartao: String, centavos: int): String</text>
+    </g>
+    <g id="servico-pix-externo">
+        <rect x="640" y="560" width="500" height="68" rx="6" fill="#ffffff" stroke="#2d3142"/>
+        <path d="M646 560 H1134 Q1140 560 1140 566 V596 H640 V566 Q640 560 646 560" fill="#f1f3f5"/>
+        <text x="890" y="583" class="nome">ServicoPixExterno</text>
+        <line x1="640" y1="596" x2="1140" y2="596" stroke="#bfc0c0"/>
+        <text x="654" y="616" class="membro">+ enviar(chaveRecebedor: String, valorTexto: String): String</text>
+    </g>
+</svg>
+</body>
+</html>
